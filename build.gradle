@@ -16,11 +16,12 @@ repositories {
 
 dependencies {
     annotationProcessor('org.hibernate:hibernate-jpamodelgen')
-    implementation 'org.jetbrains:annotations'
+    implementation 'org.jetbrains:annotations:19.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'javax.validation:validation-api'
+	implementation 'org.hibernate:hibernate-jpamodelgen'
 	runtimeOnly 'org.postgresql:postgresql'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
