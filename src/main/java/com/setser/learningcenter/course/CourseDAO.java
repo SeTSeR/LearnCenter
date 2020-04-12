@@ -1,6 +1,6 @@
 package com.setser.learningcenter.course;
 
-import com.setser.learningcenter.GenericDAO;
+import com.setser.learningcenter.db.GenericDAO;
 import com.setser.learningcenter.teacher.Teacher;
 import org.hibernate.HibernateException;
 import org.jetbrains.annotations.NotNull;

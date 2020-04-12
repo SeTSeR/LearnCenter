@@ -1,6 +1,6 @@
 package com.setser.learningcenter.teacher;
 
-import com.setser.learningcenter.UserDAO;
+import com.setser.learningcenter.db.UserDAO;
 import com.setser.learningcenter.course.Lesson;
 
 import javax.persistence.EntityManager;

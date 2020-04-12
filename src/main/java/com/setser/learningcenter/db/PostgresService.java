@@ -1,4 +1,4 @@
-package com.setser.learningcenter;
+package com.setser.learningcenter.db;
 
 import com.setser.learningcenter.administrator.Administrator;
 import com.setser.learningcenter.administrator.AdministratorDAO;
@@ -6,6 +6,8 @@ import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.CourseDAO;
 import com.setser.learningcenter.course.Lesson;
 import com.setser.learningcenter.course.LessonDAO;
+import com.setser.learningcenter.db.DBException;
+import com.setser.learningcenter.db.DBService;
 import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.pupil.PupilDAO;

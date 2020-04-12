@@ -1,4 +1,4 @@
-package com.setser.learningcenter;
+package com.setser.learningcenter.db;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;

@@ -1,6 +1,6 @@
 package com.setser.learningcenter.administrator;
 
-import com.setser.learningcenter.UserDAO;
+import com.setser.learningcenter.db.UserDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;

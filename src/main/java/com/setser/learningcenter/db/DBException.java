@@ -1,4 +1,4 @@
-package com.setser.learningcenter;
+package com.setser.learningcenter.db;
 
 public class DBException extends Exception {
 	private static final long serialVersionUID = 5421770935032087431L;

@@ -1,6 +1,6 @@
 package com.setser.learningcenter.course;
 
-import com.setser.learningcenter.GenericDAO;
+import com.setser.learningcenter.db.GenericDAO;
 
 import javax.persistence.EntityManager;
 

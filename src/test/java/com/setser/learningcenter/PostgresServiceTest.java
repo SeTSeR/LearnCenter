@@ -3,6 +3,8 @@ package com.setser.learningcenter;
 import com.setser.learningcenter.administrator.Administrator;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.Lesson;
+import com.setser.learningcenter.db.DBException;
+import com.setser.learningcenter.db.PostgresService;
 import com.setser.learningcenter.model.BaseEntity;
 import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
