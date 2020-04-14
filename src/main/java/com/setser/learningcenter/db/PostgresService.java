@@ -15,15 +15,22 @@ import com.setser.learningcenter.teacher.Teacher;
 import com.setser.learningcenter.teacher.TeacherDAO;
 import org.hibernate.HibernateException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import java.util.List;
 
+@Component
 public class PostgresService implements DBService {
 
     private final EntityManagerFactory entityManagerFactory;
+
+    public PostgresService() {
+        this("com.setser.learningcenter");
+    }
 
     public PostgresService(String persistenceUnitName) {
         try {

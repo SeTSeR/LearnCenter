@@ -23,4 +23,14 @@ public class Pupil extends PublicUser {
     public void addCourse(Course course) {
         courses.add(course);
     }
+
+    @Override
+    public boolean isPupil() {
+        return true;
+    }
+
+    @Override
+    public boolean isTeacher() {
+        return false;
+    }
 }

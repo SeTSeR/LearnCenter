@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @MappedSuperclass
-public class User extends BaseEntity {
+public abstract class User extends BaseEntity {
 	private static final long serialVersionUID = -7533057377651533690L;
 
 	@Column
@@ -32,6 +32,12 @@ public class User extends BaseEntity {
     public void setPassHash(String passHash) {
         this.passHash = passHash;
     }
+
+    public abstract boolean isAdmin();
+
+    public abstract boolean isPupil();
+
+    public abstract boolean isTeacher();
 
     @Override
     public boolean equals(Object o) {

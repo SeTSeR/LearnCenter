@@ -16,4 +16,19 @@ public class Administrator extends User {
                 joinColumns = @JoinColumn(name="admin_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name="course_id", referencedColumnName = "id"))
     private Set<Course> courses;
+
+    @Override
+    public boolean isAdmin() {
+        return true;
+    }
+
+    @Override
+    public boolean isPupil() {
+        return false;
+    }
+
+    @Override
+    public boolean isTeacher() {
+        return false;
+    }
 }

@@ -34,4 +34,14 @@ public class Teacher extends PublicUser {
     public void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
+
+    @Override
+    public boolean isPupil() {
+        return false;
+    }
+
+    @Override
+    public boolean isTeacher() {
+        return true;
+    }
 }

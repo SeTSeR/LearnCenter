@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @MappedSuperclass
-public class PublicUser extends User {
+public abstract class PublicUser extends User {
 	private static final long serialVersionUID = 7860242243240072206L;
 
 	@Column(name="first_name")
@@ -77,6 +77,11 @@ public class PublicUser extends User {
 
     public void setDisplayMail(boolean displayMail) {
         this.displayMail = displayMail;
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return false;
     }
 
     @Override

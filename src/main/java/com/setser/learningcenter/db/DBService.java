@@ -7,6 +7,7 @@ import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.teacher.Teacher;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
