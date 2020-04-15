@@ -2,11 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>LearningCenter - Courses list</title>
+    <title>LearningCenter - Список курсов</title>
 </head>
 <body>
-    <h1>Welcome</h1>
+    <div th:insert="header :: (${#httpServletRequest.remoteUser} ? user_header : header)"></div>
+    <h1>Поиск курсов</h1>
+    <form th:action="@{/courses}" method=post>
+        <div>
+            <label>Название курса для поиска: </label>
+            <input type="search" name="query">
+            <input type="submit" value="Найти">
+        </div>
+    </form>
 
-    <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+    <ul th:each="course: ${allCourses}">
+        <li><a th:href="@{/course/show(id=${course.id}}">[[${course.description}]]</a></li>
+    </ul>
 </body>
 </html>
