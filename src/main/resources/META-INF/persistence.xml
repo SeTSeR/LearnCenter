@@ -18,7 +18,6 @@
             <property name="javax.persistence.jdbc.user" value="learn_center"/>
             <property name="javax.persistence.jdbc.password" value="learn_center"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
-            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>
