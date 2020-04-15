@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>LearningCenter - Список курсов</title>
+    <title>LearnCenter - Список преподавателей</title>
 </head>
 <body>
     <div th:insert="header :: (${#httpServletRequest.remoteUser} ? user_header : header)"></div>
@@ -15,8 +15,8 @@
         </div>
     </form>
 
-    <ul th:each="course: ${allCourses}">
-        <li><a th:href="@{/course/show(id=${course.id})}">[[${course.description}]]</a></li>
+    <ul th:each="teacher: ${allTeachers}">
+        <li><a th:href="@{/user/show(id=${teacher.id})}">[[${teacher.bio}]]</a></li>
     </ul>
 </body>
 </html>

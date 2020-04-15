@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LearnCenter - Регистрация</title>
+    <style type="text/css">
+        .teacher_info {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function() {
+            for (let element of document.getElementsByTagName('input')) {
+                if (element.type === 'checkbox') {
+                    element.checked = false;
+                }
+            }
+        };
+
+        function toggleTeacherInfo() {
+            const checked = document.getElementsByName("isTeacher")[0].checked;
+            for (let element of document.getElementsByClassName("teacher_info")) {
+                element.style.display = checked ? "block" : "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div th:if="${param.success}">
+        Пользователь успешно зарегистрирован! Теперь вы можете войти, используя форму входа.
+    </div>
+    <div th:if="${param.error}">
+        При заполнении формы регистрации были допущены ошибки.
+    </div>
+    <div th:insert="header :: header"></div>
+    <form action="#" th:action="@{/register}" th:object="${registrationForm}" method="post">
+        <div><label>E-mail: </label><input type="text" th:field="*{username}"/></div>
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Некорректный e-mail.</div>
+        <div><label>Пароль: </label><input type="password" th:field="*{password}"/></div>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Некорректный пароль.</div>
+        <div><label>Имя: </label><input type="text" th:field="*{firstName}"/></div>
+        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Некорректное имя.</div>
+        <div><label>Фамилия: </label><input type="text" th:field="*{lastName}"/></div>
+        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Некорректная фамилия.</div>
+        <div><label>Отчество: </label><input type="text" th:field="*{patronymic}"/></div>
+        <div th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Некорректное отчество.</div>
+        <div><label>О себе: </label><input type="text" th:field="*{bio}"/></div>
+        <div th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}">Некорректное описание.</div>
+        <div><input type="checkbox" th:field="*{isTeacher}" onclick="toggleTeacherInfo()"><label> Зарегистрироваться как учитель</label></div>
+        <div class="teacher_info"><label>Название компании: </label><input type="text" th:field="*{companyName}"/></div>
+        <div th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}" class="teacher_info">Некорректное название компании.</div>
+        <div><input type="submit" value="Зарегистрироваться"/></div>
+    </form>
+</body>
+</html>

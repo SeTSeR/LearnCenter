@@ -2,6 +2,7 @@ package com.setser.learningcenter.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,10 +12,12 @@ public abstract class User extends BaseEntity {
 
 	@Column
     @NotNull
+    @NotBlank
     private String mail;
 
     @Column(name="pass_hash")
     @NotNull
+    @NotBlank
     private String passHash;
 
     public String getMail() {
