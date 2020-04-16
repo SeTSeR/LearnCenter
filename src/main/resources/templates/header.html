@@ -5,7 +5,7 @@
         <a th:href="@{/}">Главная</a>|<a th:href="@{/login}">Вход</a>|<a th:href="@{/register}">Регистрация</a>
     </div>
     <div th:fragment="user_header">
-        <a th:href="@{/}">Главная</a>|<a th:href="@{/user}">Моя страница</a>|
+        <a th:href="@{/}">Главная</a>|<a th:href="@{/user/show}">Моя страница</a>|
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Выход">
         </form>

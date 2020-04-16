@@ -3,6 +3,8 @@ package com.setser.learningcenter.controllers;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.db.DBService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +19,8 @@ public class CourseController {
 
     private final DBService dbService;
 
+    private final Logger logger = LoggerFactory.getLogger(CourseController.class);
+
     public CourseController(DBService dbService) {
         this.dbService = dbService;
     }
@@ -26,7 +30,7 @@ public class CourseController {
         try {
             return dbService.findCourses("", true);
         } catch (DBException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -42,7 +46,7 @@ public class CourseController {
         try {
             courses = dbService.findCourses(query, true);
         } catch (DBException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         model.replace("allCourses", courses);
         return "courses";

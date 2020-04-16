@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LeaningCenter - Страница администратора</title>
+</head>
+<body>
+    <div th:insert="header :: user_header"></div>
+    <h1>Страница администратора</h1>
+    <div th:object="${user}">
+        <ul th:each="course: *{courses}">
+            <li><a th:href="@{/course/show(id=${course.id})}">[[${course.description}]]</a></li>
+        </ul>
+    </div>
+</body>
+</html>

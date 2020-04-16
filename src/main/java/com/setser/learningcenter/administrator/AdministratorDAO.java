@@ -18,6 +18,7 @@ public class AdministratorDAO extends UserDAO<Administrator, Long> {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Administrator> adminQuery = builder.createQuery(persistentClass);
         Root<Administrator> adminRoot = adminQuery.from(persistentClass);
+        adminRoot.fetch(Administrator_.courses);
         adminQuery.select(adminRoot);
         adminQuery.where(builder.equal(adminRoot.get(Administrator_.mail), mail));
         Administrator admin = manager.createQuery(adminQuery).getSingleResult();

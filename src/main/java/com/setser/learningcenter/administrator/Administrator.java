@@ -4,6 +4,8 @@ import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.model.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,5 +32,9 @@ public class Administrator extends User {
     @Override
     public boolean isTeacher() {
         return false;
+    }
+
+    public List<Course> getCourses() {
+        return new ArrayList<>(courses);
     }
 }

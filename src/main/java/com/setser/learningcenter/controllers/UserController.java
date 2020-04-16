@@ -4,19 +4,25 @@ import com.setser.learningcenter.config.WebSecurityConfig;
 import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.db.DBService;
 import com.setser.learningcenter.forms.RegistrationForm;
+import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.teacher.Teacher;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
 public class UserController {
     private final DBService dbService;
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     public UserController(DBService dbService) {
         this.dbService = dbService;
@@ -47,7 +53,7 @@ public class UserController {
                 try {
                     dbService.registerTeacher(teacher);
                 } catch (DBException e) {
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage());
                     return "register";
                 }
             } else {
@@ -63,11 +69,29 @@ public class UserController {
                 try {
                     dbService.registerPupil(pupil);
                 } catch (DBException e) {
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage());
                     return "register";
                 }
             }
             return "redirect:/register?success";
+        }
+    }
+
+    @RequestMapping(value = "/user/show")
+    public String showUserPage(@NotNull final HttpServletRequest request, @NotNull final ModelMap model) {
+        try {
+            User user = dbService.findUserByMail(request.getUserPrincipal().getName());
+            model.addAttribute("user", user);
+            if (user.isAdmin()) {
+                return "admin";
+            } else if (user.isTeacher()) {
+                return "teacher";
+            } else {
+                return "pupil";
+            }
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+            return "login";
         }
     }
 }
