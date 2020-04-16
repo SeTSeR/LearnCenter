@@ -4,6 +4,7 @@ import com.setser.learningcenter.db.UserDAO;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.Course_;
 import com.setser.learningcenter.course.Lesson;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -27,7 +28,7 @@ public class PupilDAO extends UserDAO<Pupil, Long> {
         return result;
     }
 
-    public List<Lesson> getTimetable(Pupil pupil) {
+    public List<Lesson> getTimetable(@NotNull Pupil pupil) {
         manager.getTransaction().begin();
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 

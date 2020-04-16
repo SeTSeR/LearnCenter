@@ -2,6 +2,7 @@ package com.setser.learningcenter.teacher;
 
 import com.setser.learningcenter.db.UserDAO;
 import com.setser.learningcenter.course.Lesson;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -26,7 +27,7 @@ public class TeacherDAO extends UserDAO<Teacher, Long> {
         return result;
     }
 
-    public List<Teacher> findTeachers(String query) {
+    public List<Teacher> findTeachers(@NotNull String query) {
         manager.getTransaction().begin();
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 
@@ -44,7 +45,7 @@ public class TeacherDAO extends UserDAO<Teacher, Long> {
         return results;
     }
 
-    public List<Lesson> getTimetable(Teacher teacher) {
+    public List<Lesson> getTimetable(@NotNull Teacher teacher) {
         manager.getTransaction().begin();
         CriteriaBuilder builder = manager.getCriteriaBuilder();
 
