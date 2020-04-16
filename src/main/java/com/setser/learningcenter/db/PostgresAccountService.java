@@ -25,6 +25,9 @@ public class PostgresAccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             User user = dbService.findUserByMail(username);
+            if (user == null) {
+                throw new UsernameNotFoundException("Cannot find user " + username);
+            }
             List<GrantedAuthority> grantList = new ArrayList<>();
             GrantedAuthority authority;
             if (user.isAdmin()) {
