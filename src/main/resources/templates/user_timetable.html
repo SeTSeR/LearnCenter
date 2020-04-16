@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<body>
+    <div th:fragment="table">
+        <h2>Ближайшие занятия:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Описание</th>
+                    <th>Дата и время</th>
+                    <th>Часть курса</th>
+                    <th>Преподаватель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="lesson: ${lessons}">
+                    <td th:text="${lesson.description}">Тема занятия</td>
+                    <td th:text="${lesson.lessonTime}">Время занятия</td>
+                    <td><a th:href="@{/course/show(id=${lesson.course.id})}"
+                           th:text="${lesson.course.description}">Занятие является частью курса</a></td>
+                    <td><a th:href="@{/teacher/show(id=${lesson.teacher.id})}"
+                           th:text="${lesson.teacher.patronymic != null} ?
+                           ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName + ' ' + lesson.teacher.patronymic} :
+                           ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName}">Занятие ведёт</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

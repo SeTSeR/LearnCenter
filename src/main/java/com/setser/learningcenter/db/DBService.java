@@ -14,7 +14,13 @@ import java.util.List;
 public interface DBService {
     List<Course> findCourses(String query, boolean filterShowed) throws DBException;
 
+    Course getCourseById(Long id) throws DBException;
+
     List<Teacher> findTeachers(String query) throws DBException;
+
+    Teacher getTeacherById(Long id) throws DBException;
+
+    Pupil getPupilById(Long id) throws DBException;
 
     User findUserByMail(String mail) throws DBException;
 

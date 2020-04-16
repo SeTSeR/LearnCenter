@@ -5,6 +5,7 @@ import com.setser.learningcenter.db.UserDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 public class AdministratorDAO extends UserDAO<Administrator, Long> {
@@ -18,7 +19,7 @@ public class AdministratorDAO extends UserDAO<Administrator, Long> {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Administrator> adminQuery = builder.createQuery(persistentClass);
         Root<Administrator> adminRoot = adminQuery.from(persistentClass);
-        adminRoot.fetch(Administrator_.courses);
+        adminRoot.fetch(Administrator_.courses, JoinType.LEFT);
         adminQuery.select(adminRoot);
         adminQuery.where(builder.equal(adminRoot.get(Administrator_.mail), mail));
         Administrator admin = manager.createQuery(adminQuery).getSingleResult();

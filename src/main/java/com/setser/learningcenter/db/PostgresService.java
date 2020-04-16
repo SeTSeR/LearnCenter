@@ -51,9 +51,36 @@ public class PostgresService implements DBService {
     }
 
     @Override
+    public Course getCourseById(Long id) throws DBException {
+        try (CourseDAO dao = new CourseDAO(entityManagerFactory.createEntityManager())) {
+            return dao.getById(id);
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }
+    }
+
+    @Override
     public List<Teacher> findTeachers(String query) throws DBException {
         try (TeacherDAO dao = new TeacherDAO(entityManagerFactory.createEntityManager())) {
             return dao.findTeachers(query);
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }
+    }
+
+    @Override
+    public Teacher getTeacherById(Long id) throws DBException {
+        try (TeacherDAO dao = new TeacherDAO(entityManagerFactory.createEntityManager())) {
+            return dao.getById(id);
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }
+    }
+
+    @Override
+    public Pupil getPupilById(Long id) throws DBException {
+        try(PupilDAO dao = new PupilDAO(entityManagerFactory.createEntityManager())) {
+            return dao.getById(id);
         } catch (HibernateException e) {
             throw new DBException(e);
         }

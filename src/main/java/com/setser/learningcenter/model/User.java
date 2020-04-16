@@ -2,8 +2,11 @@ package com.setser.learningcenter.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
@@ -13,12 +16,17 @@ public abstract class User extends BaseEntity {
 	@Column
     @NotNull
     @NotBlank
+    @Email
     private String mail;
 
     @Column(name="pass_hash")
     @NotNull
-    @NotBlank
     private String passHash;
+
+    @Size(min=8, max=50, message = "Длина пароля должна быть от 8 до 50 символов")
+    @NotBlank(message = "Не указан пароль")
+    @Transient
+    private String password;
 
     public String getMail() {
         return mail;
@@ -40,7 +48,7 @@ public abstract class User extends BaseEntity {
 
     public abstract boolean isPupil();
 
-    public abstract boolean isTeacher();
+    public abstract boolean getIsTeacher();
 
     @Override
     public boolean equals(Object o) {
@@ -55,5 +63,13 @@ public abstract class User extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), mail, passHash);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

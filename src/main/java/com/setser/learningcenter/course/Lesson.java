@@ -64,13 +64,11 @@ public class Lesson extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
         return description.equals(lesson.description) &&
-                lessonTime.equals(lesson.lessonTime) &&
-                course.equals(lesson.course) &&
-                teacher.equals(lesson.teacher);
+                lessonTime.equals(lesson.lessonTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, lessonTime, course, teacher);
+        return Objects.hash(description, lessonTime);
     }
 }

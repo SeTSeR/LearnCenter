@@ -30,7 +30,7 @@ public class Pupil extends PublicUser {
     }
 
     @Override
-    public boolean isTeacher() {
+    public boolean getIsTeacher() {
         return false;
     }
 }

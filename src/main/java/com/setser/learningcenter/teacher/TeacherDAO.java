@@ -20,6 +20,7 @@ public class TeacherDAO extends UserDAO<Teacher, Long> {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Teacher> teacherQuery = builder.createQuery(persistentClass);
         Root<Teacher> teacherRoot = teacherQuery.from(persistentClass);
+        teacherRoot.fetch(Teacher_.lessons, JoinType.LEFT);
         teacherQuery.select(teacherRoot);
         teacherQuery.where(builder.equal(teacherRoot.get(Teacher_.mail), mail));
         Teacher result = manager.createQuery(teacherQuery).getSingleResult();
@@ -51,7 +52,7 @@ public class TeacherDAO extends UserDAO<Teacher, Long> {
 
         CriteriaQuery<Teacher> teacherQuery = builder.createQuery(persistentClass);
         Root<Teacher> teacherRoot = teacherQuery.from(persistentClass);
-        teacherRoot.fetch(Teacher_.lessons);
+        teacherRoot.fetch(Teacher_.lessons, JoinType.LEFT);
         teacherQuery.where(builder.equal(teacherRoot.get(Teacher_.id), teacher.getId()));
         Teacher result = manager.createQuery(teacherQuery).getSingleResult();
         manager.getTransaction().commit();

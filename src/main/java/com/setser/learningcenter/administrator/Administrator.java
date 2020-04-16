@@ -30,7 +30,7 @@ public class Administrator extends User {
     }
 
     @Override
-    public boolean isTeacher() {
+    public boolean getIsTeacher() {
         return false;
     }
 

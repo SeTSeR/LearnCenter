@@ -5,6 +5,7 @@ import com.setser.learningcenter.model.PublicUser;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,7 @@ public class Teacher extends PublicUser {
 
 	@Column(name = "company_name")
     @NotNull
+    @Size(max=50, message = "Длина названия компании от 10 до 50 символов")
     private String companyName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
@@ -41,7 +43,7 @@ public class Teacher extends PublicUser {
     }
 
     @Override
-    public boolean isTeacher() {
+    public boolean getIsTeacher() {
         return true;
     }
 }

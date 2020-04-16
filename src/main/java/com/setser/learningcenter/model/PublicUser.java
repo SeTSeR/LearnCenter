@@ -2,7 +2,9 @@ package com.setser.learningcenter.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
@@ -11,16 +13,19 @@ public abstract class PublicUser extends User {
 
 	@Column(name="first_name")
     @NotNull
+    @NotBlank(message = "Это поле не может быть пустым")
     private String firstName;
 
     @Column(name="last_name")
     @NotNull
+    @NotBlank(message = "Это поле не может быть пустым")
     private String lastName;
 
     @Column
     private String patronymic;
 
     @Column
+    @Size(max=150, message = "Длина текста не более 150 символов")
     private String bio;
 
     @Column(name="display_name")
@@ -63,7 +68,7 @@ public abstract class PublicUser extends User {
         this.bio = bio;
     }
 
-    public boolean isDisplayName() {
+    public boolean getDisplayName() {
         return displayName;
     }
 
@@ -71,7 +76,7 @@ public abstract class PublicUser extends User {
         this.displayName = displayName;
     }
 
-    public boolean isDisplayMail() {
+    public boolean getDisplayMail() {
         return displayMail;
     }
 
