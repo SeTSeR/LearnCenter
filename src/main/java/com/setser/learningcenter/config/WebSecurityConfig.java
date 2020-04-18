@@ -28,8 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/", "/courses", "/course/search",
                             "/register").permitAll()
-                    .regexMatchers("\\/course\\/show\\?id=\\d+").permitAll()
-                    .regexMatchers("\\/user\\/show\\?id=\\d+&isTeacher=(true|false)").permitAll()
+                    .regexMatchers("/course/show\\?id=\\d+").permitAll()
+                    .regexMatchers("/user/show\\?id=\\d+&isTeacher=(true|false)").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
