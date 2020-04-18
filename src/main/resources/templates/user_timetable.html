@@ -19,7 +19,7 @@
                     <td th:text="${lesson.lessonTime}">Время занятия</td>
                     <td><a th:href="@{/course/show(id=${lesson.course.id})}"
                            th:text="${lesson.course.description}">Занятие является частью курса</a></td>
-                    <td><a th:href="@{/teacher/show(id=${lesson.teacher.id})}"
+                    <td><a th:href="@{/user/show(id=${lesson.teacher.id}, isTeacher=${lesson.teacher.isTeacher})}"
                            th:text="${lesson.teacher.patronymic != null} ?
                            ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName + ' ' + lesson.teacher.patronymic} :
                            ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName}">Занятие ведёт</a></td>

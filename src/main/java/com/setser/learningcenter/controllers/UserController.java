@@ -98,8 +98,31 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/pupil/edit")
+    public String editPupil(@Valid Pupil pupil,
+                              @NotNull final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "pupil";
+        } else {
+            try {
+                Pupil pupil_db = (Pupil)dbService.findUserByMail(pupil.getMail());
+                pupil.setId(pupil_db.getId());
+                if (!pupil.getPassword().isBlank()) {
+                    pupil.setPassHash(WebSecurityConfig.passwordEncoder().encode(pupil.getPassword()));
+                } else {
+                    pupil.setPassHash(pupil_db.getPassHash());
+                }
+                dbService.updatePupil(pupil);
+            } catch (DBException e) {
+                logger.error(e.getMessage());
+                return "pupil";
+            }
+            return "redirect:/user/show?success";
+        }
+    }
+
     @RequestMapping(value = "/user/show")
-    public String showUserPage(@NotNull final HttpServletRequest request, @NotNull final ModelMap model) {
+    public String showPersonalPage(@NotNull final HttpServletRequest request, @NotNull final ModelMap model) {
         try {
             if (request.getUserPrincipal() == null) {
                 return "login";
@@ -116,6 +139,24 @@ public class UserController {
         } catch (DBException e) {
             logger.error(e.getMessage());
             return "login";
+        }
+    }
+
+    @RequestMapping(value = "/user/show", params = {"id", "isTeacher"})
+    public String showUserPage(@RequestParam final Long id, @RequestParam boolean isTeacher, @NotNull final ModelMap model) {
+        try {
+            if (isTeacher) {
+                Teacher teacher = dbService.getTeacherById(id);
+                model.addAttribute("user", teacher);
+                return "teacher";
+            } else {
+                Pupil pupil = dbService.getPupilById(id);
+                model.addAttribute("user", pupil);
+                return "pupil";
+            }
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+            return "courses";
         }
     }
 

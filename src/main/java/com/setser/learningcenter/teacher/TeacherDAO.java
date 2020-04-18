@@ -15,6 +15,20 @@ public class TeacherDAO extends UserDAO<Teacher, Long> {
     }
 
     @Override
+    public Teacher getById(Long id) {
+        manager.getTransaction().begin();
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Teacher> teacherQuery = builder.createQuery(persistentClass);
+        Root<Teacher> teacherRoot = teacherQuery.from(persistentClass);
+        teacherRoot.fetch(Teacher_.lessons, JoinType.LEFT);
+        teacherQuery.select(teacherRoot);
+        teacherQuery.where(builder.equal(teacherRoot.get(Teacher_.id), id));
+        Teacher result = manager.createQuery(teacherQuery).getSingleResult();
+        manager.getTransaction().commit();
+        return result;
+    }
+
+    @Override
     public Teacher findUserByMail(String mail) {
         manager.getTransaction().begin();
         CriteriaBuilder builder = manager.getCriteriaBuilder();

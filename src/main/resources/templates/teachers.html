@@ -17,7 +17,7 @@
     </form>
 
     <ul th:each="teacher: ${allTeachers}">
-        <li><a th:href="@{/user/show(id=${teacher.id})}">[[${teacher.bio}]]</a></li>
+        <li><a th:href="@{/user/show(id=${teacher.id}, isTeacher=${teacher.isTeacher})}">[[${teacher.bio}]]</a></li>
     </ul>
 </body>
 </html>

@@ -16,12 +16,26 @@ public class PupilDAO extends UserDAO<Pupil, Long> {
     }
 
     @Override
+    public Pupil getById(Long id) {
+        manager.getTransaction().begin();
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Pupil> query = builder.createQuery(persistentClass);
+        Root<Pupil> pupilRoot = query.from(persistentClass);
+        pupilRoot.fetch(Pupil_.courses, JoinType.LEFT);
+        query.select(pupilRoot);
+        query.where(builder.equal(pupilRoot.get(Pupil_.id), id));
+        Pupil result = manager.createQuery(query).getSingleResult();
+        manager.getTransaction().commit();
+        return result;
+    }
+
+    @Override
     public Pupil findUserByMail(String mail) {
         manager.getTransaction().begin();
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Pupil> query = builder.createQuery(persistentClass);
         Root<Pupil> pupilRoot = query.from(persistentClass);
-        pupilRoot.fetch(Pupil_.courses);
+        pupilRoot.fetch(Pupil_.courses, JoinType.LEFT);
         query.select(pupilRoot);
         query.where(builder.equal(pupilRoot.get(Pupil_.mail), mail));
         Pupil result = manager.createQuery(query).getSingleResult();
