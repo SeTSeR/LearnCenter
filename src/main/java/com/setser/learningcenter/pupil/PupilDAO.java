@@ -21,6 +21,7 @@ public class PupilDAO extends UserDAO<Pupil, Long> {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Pupil> query = builder.createQuery(persistentClass);
         Root<Pupil> pupilRoot = query.from(persistentClass);
+        pupilRoot.fetch(Pupil_.courses);
         query.select(pupilRoot);
         query.where(builder.equal(pupilRoot.get(Pupil_.mail), mail));
         Pupil result = manager.createQuery(query).getSingleResult();

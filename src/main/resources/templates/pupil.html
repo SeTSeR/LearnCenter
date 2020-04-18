@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LearnCenter - Страница обучающегося</title>
+    <style type="text/css">
+        .edit_info {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        function showEditForm() {
+            for (let element of document.getElementsByClassName("edit_info")) {
+                element.style.display = "block";
+            }
+            document.getElementById("editButton").style.display = "none";
+        }
+
+        function hideEditForm() {
+            for (let element of document.getElementsByClassName("edit_info")) {
+                element.style.display = "none";
+            }
+            document.getElementById("editButton").style.display = "block";
+        }
+
+        function deleteTimetable() {
+            let element = document.getElementById('timetable');
+            element.parentNode.removeChild(element);
+        }
+
+        async function genTimetable() {
+            let newElem = document.createElement("div");
+            newElem.id = "timetable";
+            let href = document.createElement("a");
+            href.innerHTML = "<a href='#' onclick='deleteTimetable()'>Скрыть расписание</a><br/>";
+            let div = document.createElement("div");
+            newElem.append(href, div);
+            let response = await fetch('/user/timetable?id=' + [[${user.id}]] + "&isTeacher=" + [[${user.isTeacher}]]);
+            if (response.ok) {
+                div.innerHTML = await response.text();
+            } else {
+                div.innerText = "При попытке получить расписание произошла ошибка: " + response.status;
+            }
+            let generateButton = document.getElementById('timetable-gen');
+            generateButton.parentNode.insertBefore(newElem, generateButton.nextSibling);
+        }
+    </script>
+</head>
+<body>
+<div th:insert="header :: (${#httpServletRequest.remoteUser} ? user_header : header)"></div>
+<div th:if="${param.success}">
+    Данные успешно изменены!
+</div>
+<h1>Информация об обучающемся</h1>
+<div th:if="${user.displayName} or ${user.mail == #httpServletRequest.remoteUser}">ФИО: [[${user.firstName}]] [[${user.lastName}]]
+    [[${user.patronymic}]]<br/></div>
+<div th:if="${user.displayMail} or ${user.mail == #httpServletRequest.remoteUser}">E-mail: [[${user.mail}]]<br/></div>
+О себе: [[${user.bio}]]<br/>
+<h2>Текущие курсы:</h2>
+<ul th:each="course: ${user.courses}">
+    <li><a th:href="@{/course/show(id=${course.id})}">[[${course.description}]]</a></li>
+</ul>
+<input type="submit" value="Сгенерировать расписание" id="timetable-gen" onclick="genTimetable()"/><br/>
+<div class="edit_info">
+    <a href="#" onclick="hideEditForm()">Скрыть форму редактирования</a>
+    <form action="#" th:action="@{/pupil/edit}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{mail}"/>
+        <div><label>Пароль: </label><input type="password" th:field="*{password}"/></div>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Некорректный пароль.</div>
+        <div><label>Имя: </label><input type="text" th:field="*{firstName}"/></div>
+        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Некорректное имя.</div>
+        <div><label>Фамилия: </label><input type="text" th:field="*{lastName}"/></div>
+        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Некорректная фамилия.</div>
+        <div><label>Отчество: </label><input type="text" th:field="*{patronymic}"/></div>
+        <div th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Некорректное отчество.</div>
+        <div><label>О себе: </label><input type="text" th:field="*{bio}"/></div>
+        <div th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}">Некорректное описание.</div>
+        <div><input type="checkbox" th:field="*{displayName}"><label>Отображать ФИО</label></div>
+        <div><input type="checkbox" th:field="*{displayMail}"><label>Отображать почту</label></div>
+        <div><input type="submit" value="Сохранить изменения"/></div>
+    </form>
+</div>
+<input th:if="${user.mail == #httpServletRequest.remoteUser}" id="editButton" type="submit" value="Редактировать страницу" onclick="showEditForm()"/>
+</body>
+</html>
