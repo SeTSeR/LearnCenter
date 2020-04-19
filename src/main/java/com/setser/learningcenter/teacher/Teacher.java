@@ -38,7 +38,7 @@ public class Teacher extends PublicUser {
     }
 
     @Override
-    public boolean isPupil() {
+    public boolean getIsPupil() {
         return false;
     }
 

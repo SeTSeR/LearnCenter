@@ -129,7 +129,7 @@ public class UserController {
             }
             User user = dbService.findUserByMail(request.getUserPrincipal().getName());
             model.addAttribute("user", user);
-            if (user.isAdmin()) {
+            if (user.getIsAdmin()) {
                 return "admin";
             } else if (user.getIsTeacher()) {
                 return "teacher";
@@ -143,14 +143,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/show", params = {"id", "isTeacher"})
-    public String showUserPage(@RequestParam final Long id, @RequestParam boolean isTeacher, @NotNull final ModelMap model) {
+    public String showUserPage(@RequestParam("id") final Long userId, @RequestParam boolean isTeacher, @NotNull final ModelMap model) {
         try {
             if (isTeacher) {
-                Teacher teacher = dbService.getTeacherById(id);
+                Teacher teacher = dbService.getTeacherById(userId);
                 model.addAttribute("user", teacher);
                 return "teacher";
             } else {
-                Pupil pupil = dbService.getPupilById(id);
+                Pupil pupil = dbService.getPupilById(userId);
                 model.addAttribute("user", pupil);
                 return "pupil";
             }
@@ -168,7 +168,7 @@ public class UserController {
             List<Lesson> lessons = new ArrayList<>();
             if (isTeacher) {
                 lessons = dbService.getTimetableForTeacher(dbService.getTeacherById(id));
-            } else if (user.isPupil()) {
+            } else if (user.getIsPupil()) {
                 lessons = dbService.getTimetableForPupil(dbService.getPupilById(id));
             }
             model.addAttribute("lessons", lessons);

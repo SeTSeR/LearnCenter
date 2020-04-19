@@ -20,12 +20,12 @@ public class Administrator extends User {
     private Set<Course> courses;
 
     @Override
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return true;
     }
 
     @Override
-    public boolean isPupil() {
+    public boolean getIsPupil() {
         return false;
     }
 

@@ -44,9 +44,9 @@ public abstract class User extends BaseEntity {
         this.passHash = passHash;
     }
 
-    public abstract boolean isAdmin();
+    public abstract boolean getIsAdmin();
 
-    public abstract boolean isPupil();
+    public abstract boolean getIsPupil();
 
     public abstract boolean getIsTeacher();
 

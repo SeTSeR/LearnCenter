@@ -3,10 +3,14 @@ package com.setser.learningcenter.course;
 import com.setser.learningcenter.administrator.Administrator;
 import com.setser.learningcenter.model.BaseEntity;
 import com.setser.learningcenter.pupil.Pupil;
+import com.setser.learningcenter.teacher.Teacher;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="course")
@@ -22,13 +26,13 @@ public class Course extends BaseEntity {
 
     @ManyToMany(mappedBy = "courses")
     @NotEmpty
-    private Set<Administrator> admins;
+    private final Set<Administrator> admins;
 
     @ManyToMany(mappedBy = "courses")
-    private Set<Pupil> pupils;
+    private final Set<Pupil> pupils;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
-    private Set<Lesson> lessons;
+    private final Set<Lesson> lessons;
 
     public Course() {
         admins = new HashSet<>();
@@ -68,11 +72,29 @@ public class Course extends BaseEntity {
         return new ArrayList<>(lessons);
     }
 
-    public boolean isDisplayed() {
+    public List<Teacher> getTeachers() {
+        return lessons.stream().map(Lesson::getTeacher).collect(Collectors.toList());
+    }
+
+    public List<LocalDateTime> getDates() {
+        LocalDateTime first = lessons
+                .stream()
+                .map(Lesson::getLessonTime)
+                .min(LocalDateTime::compareTo)
+                .orElseThrow();
+        LocalDateTime second = lessons
+                .stream()
+                .map(Lesson::getLessonTime)
+                .max(LocalDateTime::compareTo)
+                .orElseThrow();
+        return Stream.of(first, second).collect(Collectors.toList());
+    }
+
+    public boolean getIsDisplayed() {
         return isDisplayed;
     }
 
-    public void setDisplayed(boolean displayed) {
+    public void setIsDisplayed(boolean displayed) {
         isDisplayed = displayed;
     }
 

@@ -85,7 +85,7 @@ public abstract class PublicUser extends User {
     }
 
     @Override
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return false;
     }
 

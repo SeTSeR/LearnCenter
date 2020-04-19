@@ -34,9 +34,9 @@ public class PostgresAccountService implements UserDetailsService {
             }
             List<GrantedAuthority> grantList = new ArrayList<>();
             GrantedAuthority authority;
-            if (user.isAdmin()) {
+            if (user.getIsAdmin()) {
                 authority = new SimpleGrantedAuthority("ADMIN");
-            } else if (user.isPupil()) {
+            } else if (user.getIsPupil()) {
                 authority = new SimpleGrantedAuthority("USER");
             } else if (user.getIsTeacher()) {
                 authority = new SimpleGrantedAuthority("TEACHER");

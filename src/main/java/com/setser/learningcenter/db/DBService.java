@@ -38,8 +38,6 @@ public interface DBService {
 
     void registerPupil(Pupil pupil) throws DBException;
 
-    void updateAdministrator(Administrator admin) throws DBException;
-
     void updateCourse(Course course) throws DBException;
 
     void updateLesson(Lesson lesson) throws DBException;

@@ -175,15 +175,6 @@ public class PostgresService implements DBService {
     }
 
     @Override
-    public void updateAdministrator(Administrator admin) throws DBException {
-        try (AdministratorDAO dao = new AdministratorDAO(entityManagerFactory.createEntityManager())) {
-            dao.save(admin);
-        } catch (HibernateException e) {
-            throw new DBException(e);
-        }
-    }
-
-    @Override
     public void updateCourse(Course course) throws DBException {
         try (CourseDAO dao = new CourseDAO(entityManagerFactory.createEntityManager())) {
             dao.update(course);

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LearnCenter - Страница курса</title>
+    <style type="text/css">
+        .add_admin {
+            display: none;
+        }
+        .course_edit {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        function showEditForm() {
+            for (let element of document.getElementsByClassName("course_edit")) {
+                element.style.display = "block";
+            }
+        }
+
+        function hideEditForm() {
+            for (let element of document.getElementsByClassName("course_edit")) {
+                element.style.display = "none";
+            }
+        }
+
+        function showAddAdminForm() {
+            for (let element of document.getElementsByClassName("add_admin")) {
+                element.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:insert="header :: (${#httpServletRequest.remoteUser} ? user_header : header)"></div>
+<h1>Информация о курсе</h1>
+<div th:object="${course}">
+    <h2>О курсе</h2>
+    <p>[[*{description}]]</p>
+    <div th:if="${!#lists.isEmpty(course.lessons)}">
+        <h2>Даты проведения</h2>
+        [[${#temporals.format(course.dates[0], 'dd-MM-yyyy HH:mm')}]] --
+        [[${#temporals.format(course.dates[0], 'dd-MM-yyyy HH:mm')}]]<br/>
+        <h2>Расписание курса</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Описание</th>
+                <th>Время занятия</th>
+                <th>Преподаватель</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lesson: *{lessons}">
+                <td th:text="${lesson.description}">Тема занятия</td>
+                <td th:text="${lesson.lessonTime}">Время проведения занятия</td>
+                <td><a th:href="@{/user/show(id=${lesson.teacher.id}, isTeacher=${lesson.teacher.isTeacher})}"
+                       th:text="${lesson.teacher.patronymic != null} ?
+                           ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName + ' ' + lesson.teacher.patronymic} :
+                           ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName}">Занятие ведёт</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${user}">
+        <div th:if="${user.isPupil}">
+            <div th:if="${#lists.contains(user.courses, course)}">
+                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=cancel)}">
+                    <input type="submit" value="Отменить запись на курс"/>
+                </form>
+            </div>
+            <div th:unless="${#lists.contains(user.courses, course)}">
+                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=register)}">
+                    <input type="submit" value="Записаться на курс">
+                </form>
+            </div>
+        </div>
+        <div th:if="${user.isTeacher and #lists.contains(course.teachers, user)}">
+            <h2>Обучающиеся, записанные на курс</h2>
+            <ul th:each="pupil: *{pupils}">
+                <li><a th:href="@{/user/show(id=${pupil.id}, isTeacher=${pupil.isTeacher})}"
+                       th:text="${pupil.patronymic != null} ?
+                           ${pupil.firstName + ' ' + pupil.lastName + ' ' + pupil.patronymic} :
+                           ${pupil.firstName + ' ' + pupil.lastName}">Имя обучающегося</a></li>
+            </ul>
+        </div>
+        <div th:if="${user.isAdmin and #lists.contains(course.administrators, user)}">
+            <input type="submit" value="Редактировать курс" onclick="showEditForm()"/>
+            <div class="course_edit">
+                <a href="#" onclick="hideEditForm()">Скрыть форму редактирования</a>
+                <form action="#" th:action="@{/course/edit(id=*{id}, action=editInfo)}" method="post">
+                    <div><label>Описание курса: </label><input type="text" th:field="*{description}"/></div>
+                    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Некорректное описание курса.</div>
+                    <div><input type="checkbox" th:field="*{isDisplayed}"/><label>Показывать курс</label></div>
+                    <input type="submit" value="Применить изменения">
+                </form>
+                <a th:href="@{/course/edit(id=*{id}, action=editTimetable)}">Редактировать расписание курса</a>
+                <h2>Администраторы курса</h2>
+                <ul th:each="admin: *{administrators}">
+                    <li>[[${admin.mail}]]<a th:href="@{/course/edit(id=*{id}, adminId=${admin.id}, action=removeAdmin)}">Отозвать</a></li>
+                </ul>
+                <input type="submit" value="Добавить администратора" onclick="showAddAdminForm()"/>
+                <div class="add_admin">
+                    <form action="#" th:action="@{/course/edit(id=*{id}, action=addAdmin)}" method="post">
+                        <div><label>Почта администратора: </label><input type="email" name="mail"/></div>
+                        <input type="submit" value="Добавить администратора"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

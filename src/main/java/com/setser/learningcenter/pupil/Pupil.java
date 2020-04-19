@@ -25,7 +25,7 @@ public class Pupil extends PublicUser {
     }
 
     @Override
-    public boolean isPupil() {
+    public boolean getIsPupil() {
         return true;
     }
 
