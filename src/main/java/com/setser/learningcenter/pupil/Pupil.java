@@ -24,6 +24,8 @@ public class Pupil extends PublicUser {
         courses.add(course);
     }
 
+    public void deleteCourse(Course course) { courses.remove(course); }
+
     @Override
     public boolean getIsPupil() {
         return true;

@@ -5,6 +5,7 @@ import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.db.DBService;
 import com.setser.learningcenter.model.User;
+import com.setser.learningcenter.pupil.Pupil;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +103,21 @@ public class CourseController {
         return "redirect:/course/show?id=" + courseId;
     }
 
+    @RequestMapping(value = "/course/register", params = {"courseId", "pupilId", "action=register"})
+    public String registerPupilToCourse(final Long courseId, final Long pupilId) {
+        try {
+            Course course = dbService.getCourseById(courseId);
+            Pupil pupil = dbService.getPupilById(pupilId);
+            course.addPupil(pupil);
+            pupil.addCourse(course);
+            dbService.updateCourse(course);
+            dbService.updatePupil(pupil);
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+        }
+        return "redirect:/course/show?id=" + courseId;
+    }
+
     @RequestMapping(value = "/course/edit", params = {"id", "action=removeAdmin", "adminId"})
     public String removeAdmin(final @RequestParam("id") Long courseId, final Long adminId, final @NotNull ModelMap model) {
         try {
@@ -146,5 +162,20 @@ public class CourseController {
             logger.error(e.getMessage());
         }
         return "course";
+    }
+
+    @RequestMapping(value="/course/register", params = {"courseId", "pupilId", "action=cancel"})
+    public String unregisterPupilFromCourse(final Long courseId, final Long pupilId) {
+        try {
+            Course course = dbService.getCourseById(courseId);
+            Pupil pupil = dbService.getPupilById(pupilId);
+            course.deletePupil(pupil);
+            pupil.deleteCourse(course);
+            dbService.updateCourse(course);
+            dbService.updatePupil(pupil);
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+        }
+        return "redirect:/course/show?id=" + courseId;
     }
 }

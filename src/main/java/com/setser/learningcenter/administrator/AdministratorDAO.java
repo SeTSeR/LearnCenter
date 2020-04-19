@@ -1,11 +1,12 @@
 package com.setser.learningcenter.administrator;
 
-import com.setser.learningcenter.course.Course;
-import com.setser.learningcenter.course.Course_;
 import com.setser.learningcenter.db.UserDAO;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
 public class AdministratorDAO extends UserDAO<Administrator, Long> {
     public AdministratorDAO(EntityManager manager) {

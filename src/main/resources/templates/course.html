@@ -66,12 +66,12 @@
     <div th:if="${user}">
         <div th:if="${user.isPupil}">
             <div th:if="${#lists.contains(user.courses, course)}">
-                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=cancel)}">
+                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=cancel)}" method="post">
                     <input type="submit" value="Отменить запись на курс"/>
                 </form>
             </div>
             <div th:unless="${#lists.contains(user.courses, course)}">
-                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=register)}">
+                <form th:action="@{/course/register(pupilId=${user.id}, courseId=${course.id}, action=register)}" method="post">
                     <input type="submit" value="Записаться на курс">
                 </form>
             </div>

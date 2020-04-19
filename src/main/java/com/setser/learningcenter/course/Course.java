@@ -30,7 +30,7 @@ public class Course extends BaseEntity {
     @NotEmpty
     private final Set<Administrator> admins;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "courses")
     private final Set<Pupil> pupils;
 
     @OneToMany(mappedBy = "course")
@@ -63,6 +63,8 @@ public class Course extends BaseEntity {
     }
 
     public void deleteAdmin(Administrator admin) { admins.remove(admin); }
+
+    public void deletePupil(Pupil pupil) { pupils.remove(pupil); }
 
     public List<Administrator> getAdministrators() {
         return new ArrayList<>(admins);
