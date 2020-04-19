@@ -13,7 +13,7 @@
             <li><a th:href="@{/course/show(id=${course.id})}">[[${course.description}]]</a></li>
         </ul>
     </div>
-    <form th:action="@{/course/create}" method="post">
+    <form th:action="@{/course/create(adminId=${user.id})}" method="post">
         <input type="submit" value="Создать курс"/>
     </form>
 </body>

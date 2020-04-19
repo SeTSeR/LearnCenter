@@ -26,11 +26,11 @@ public class Course extends BaseEntity {
     @Column(name = "is_displayed")
     private boolean isDisplayed;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "courses")
     @NotEmpty
     private final Set<Administrator> admins;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "courses")
     private final Set<Pupil> pupils;
 
     @OneToMany(mappedBy = "course")

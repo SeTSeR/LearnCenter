@@ -13,7 +13,7 @@ import java.util.Set;
 public class Administrator extends User {
 
 	private static final long serialVersionUID = -4682986284015865023L;
-	@ManyToMany(cascade=CascadeType.PERSIST)
+	@ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name = "admin_course",
                 joinColumns = @JoinColumn(name="admin_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name="course_id", referencedColumnName = "id"))

@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "pupil")
 public class Pupil extends PublicUser {
 	private static final long serialVersionUID = 4645530113376455219L;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "pupil_course",
                 joinColumns = @JoinColumn(name = "pupil_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))

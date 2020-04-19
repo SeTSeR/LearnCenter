@@ -60,13 +60,28 @@ public class CourseController {
             course.addAdmin(administrator);
             administrator.addCourse(course);
             dbService.updateAdministrator(administrator);
-            dbService.updateCourse(course);
             model.addAttribute("course", course);
             model.addAttribute("user", user);
         } catch (DBException e) {
             logger.error(e.getMessage());
         }
         return "course";
+    }
+
+    @RequestMapping(value = "/course/create", params = {"adminId"})
+    public String createCourse(final @RequestParam Long adminId) {
+        try {
+            Administrator admin = dbService.getAdministratorById(adminId);
+            Course course = new Course();
+            course.setIsDisplayed(false);
+            course.setDescription("New course");
+            course.addAdmin(admin);
+            admin.addCourse(course);
+            dbService.updateAdministrator(admin);
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+        }
+        return "redirect:/user/show";
     }
 
     @RequestMapping({"/", "/courses"})
@@ -110,7 +125,6 @@ public class CourseController {
             Pupil pupil = dbService.getPupilById(pupilId);
             course.addPupil(pupil);
             pupil.addCourse(course);
-            dbService.updateCourse(course);
             dbService.updatePupil(pupil);
         } catch (DBException e) {
             logger.error(e.getMessage());
@@ -126,7 +140,6 @@ public class CourseController {
             dbCourse.deleteAdmin(admin);
             admin.deleteCourse(dbCourse);
             dbService.updateAdministrator(admin);
-            dbService.updateCourse(dbCourse);
             model.addAttribute("course", dbCourse);
             model.addAttribute("user", admin);
         } catch (DBException e) {
@@ -171,7 +184,6 @@ public class CourseController {
             Pupil pupil = dbService.getPupilById(pupilId);
             course.deletePupil(pupil);
             pupil.deleteCourse(course);
-            dbService.updateCourse(course);
             dbService.updatePupil(pupil);
         } catch (DBException e) {
             logger.error(e.getMessage());
