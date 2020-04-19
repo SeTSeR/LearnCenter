@@ -1,7 +1,7 @@
 package com.setser.learningcenter.teacher;
 
-import com.setser.learningcenter.db.UserDAO;
 import com.setser.learningcenter.course.Lesson;
+import com.setser.learningcenter.db.UserDAO;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;

@@ -3,7 +3,10 @@ package com.setser.learningcenter.teacher;
 import com.setser.learningcenter.course.Lesson;
 import com.setser.learningcenter.model.PublicUser;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -18,7 +21,7 @@ public class Teacher extends PublicUser {
     @Size(max=50, message = "Длина названия компании от 10 до 50 символов")
     private String companyName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher")
     private Set<Lesson> lessons;
 
     public String getCompanyName() {

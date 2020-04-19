@@ -6,7 +6,6 @@ import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.teacher.Teacher;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -27,14 +26,14 @@ public class Course extends BaseEntity {
     @Column(name = "is_displayed")
     private boolean isDisplayed;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "courses")
     @NotEmpty
     private final Set<Administrator> admins;
 
     @ManyToMany(mappedBy = "courses")
     private final Set<Pupil> pupils;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    @OneToMany(mappedBy = "course")
     private final Set<Lesson> lessons;
 
     public Course() {
@@ -62,6 +61,8 @@ public class Course extends BaseEntity {
     public void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
+
+    public void deleteAdmin(Administrator admin) { admins.remove(admin); }
 
     public List<Administrator> getAdministrators() {
         return new ArrayList<>(admins);

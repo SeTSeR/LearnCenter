@@ -27,7 +27,7 @@
 
         function showAddAdminForm() {
             for (let element of document.getElementsByClassName("add_admin")) {
-                element.style.display = "none";
+                element.style.display = "block";
             }
         }
     </script>
@@ -102,7 +102,7 @@
                 </ul>
                 <input type="submit" value="Добавить администратора" onclick="showAddAdminForm()"/>
                 <div class="add_admin">
-                    <form action="#" th:action="@{/course/edit(id=*{id}, action=addAdmin)}" method="post">
+                    <form action="#" th:action="@{/course/edit(id=*{id}, action=addAdmin)}" enctype="multipart/form-data" method="post">
                         <div><label>Почта администратора: </label><input type="email" name="mail"/></div>
                         <input type="submit" value="Добавить администратора"/>
                     </form>

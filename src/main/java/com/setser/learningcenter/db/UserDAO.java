@@ -1,6 +1,5 @@
 package com.setser.learningcenter.db;
 
-import com.setser.learningcenter.db.GenericDAO;
 import com.setser.learningcenter.model.User;
 
 import javax.persistence.EntityManager;

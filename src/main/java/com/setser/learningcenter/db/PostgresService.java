@@ -6,8 +6,6 @@ import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.CourseDAO;
 import com.setser.learningcenter.course.Lesson;
 import com.setser.learningcenter.course.LessonDAO;
-import com.setser.learningcenter.db.DBException;
-import com.setser.learningcenter.db.DBService;
 import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.pupil.PupilDAO;
@@ -15,7 +13,6 @@ import com.setser.learningcenter.teacher.Teacher;
 import com.setser.learningcenter.teacher.TeacherDAO;
 import org.hibernate.HibernateException;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
@@ -38,6 +35,15 @@ public class PostgresService implements DBService {
         } catch (Throwable t) {
             System.out.println("SessionFactory creation failed: " + t);
             throw new ExceptionInInitializerError(t);
+        }
+    }
+
+    @Override
+    public Administrator getAdministratorById(Long id) throws DBException {
+        try (AdministratorDAO dao = new AdministratorDAO(entityManagerFactory.createEntityManager())) {
+            return dao.getById(id);
+        } catch (HibernateException e) {
+            throw new DBException(e);
         }
     }
 
@@ -169,6 +175,15 @@ public class PostgresService implements DBService {
         }
         try (PupilDAO dao = new PupilDAO(entityManagerFactory.createEntityManager())) {
             dao.save(pupil);
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }
+    }
+
+    @Override
+    public void updateAdministrator(Administrator administrator) throws DBException {
+        try (AdministratorDAO dao = new AdministratorDAO(entityManagerFactory.createEntityManager())) {
+            dao.update(administrator);
         } catch (HibernateException e) {
             throw new DBException(e);
         }

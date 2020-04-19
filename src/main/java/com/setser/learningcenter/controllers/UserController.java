@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -82,12 +84,12 @@ public class UserController {
             return "teacher";
         } else {
             try {
-                Teacher teacher_db = (Teacher)dbService.findUserByMail(teacher.getMail());
-                teacher.setId(teacher_db.getId());
+                Teacher dbTeacher = (Teacher)dbService.findUserByMail(teacher.getMail());
+                teacher.setId(dbTeacher.getId());
                 if (!teacher.getPassword().isBlank()) {
                     teacher.setPassHash(WebSecurityConfig.passwordEncoder().encode(teacher.getPassword()));
                 } else {
-                    teacher.setPassHash(teacher_db.getPassHash());
+                    teacher.setPassHash(dbTeacher.getPassHash());
                 }
                 dbService.updateTeacher(teacher);
             } catch (DBException e) {
@@ -105,12 +107,12 @@ public class UserController {
             return "pupil";
         } else {
             try {
-                Pupil pupil_db = (Pupil)dbService.findUserByMail(pupil.getMail());
-                pupil.setId(pupil_db.getId());
+                Pupil dbPupil = (Pupil)dbService.findUserByMail(pupil.getMail());
+                pupil.setId(dbPupil.getId());
                 if (!pupil.getPassword().isBlank()) {
                     pupil.setPassHash(WebSecurityConfig.passwordEncoder().encode(pupil.getPassword()));
                 } else {
-                    pupil.setPassHash(pupil_db.getPassHash());
+                    pupil.setPassHash(dbPupil.getPassHash());
                 }
                 dbService.updatePupil(pupil);
             } catch (DBException e) {

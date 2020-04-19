@@ -3,15 +3,15 @@ package com.setser.learningcenter.db;
 import com.setser.learningcenter.administrator.Administrator;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.Lesson;
-import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.model.User;
 import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.teacher.Teacher;
-import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
 public interface DBService {
+    Administrator getAdministratorById(Long id) throws DBException;
+
     List<Course> findCourses(String query, boolean filterShowed) throws DBException;
 
     Course getCourseById(Long id) throws DBException;
@@ -37,6 +37,8 @@ public interface DBService {
     void registerTeacher(Teacher teacher) throws DBException;
 
     void registerPupil(Pupil pupil) throws DBException;
+
+    void updateAdministrator(Administrator administrator) throws DBException;
 
     void updateCourse(Course course) throws DBException;
 

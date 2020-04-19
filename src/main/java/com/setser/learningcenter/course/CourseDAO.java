@@ -21,7 +21,7 @@ public class CourseDAO extends GenericDAO<Course, Long> {
 
         CriteriaQuery<Course> courseQuery = builder.createQuery(persistentClass);
         Root<Course> courseRoot = courseQuery.from(persistentClass);
-        courseRoot.fetch(Course_.admins, JoinType.LEFT);
+        courseRoot.fetch(Course_.admins);
         courseRoot.fetch(Course_.lessons, JoinType.LEFT);
         courseRoot.fetch(Course_.pupils, JoinType.LEFT);
         courseQuery.select(courseRoot);

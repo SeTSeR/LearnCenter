@@ -1,5 +1,6 @@
 package com.setser.learningcenter.controllers;
 
+import com.setser.learningcenter.administrator.Administrator;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.db.DBException;
 import com.setser.learningcenter.db.DBService;
@@ -13,9 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,31 @@ public class CourseController {
         }
     }
 
+    @RequestMapping(value = "/course/edit", params = {"id", "action=addAdmin"})
+    public String addAdmin(final @RequestPart @Email String mail, @NotNull BindingResult bindingResult,
+                           final @RequestParam("id") Long courseId, final ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/course/show?id=" + courseId;
+        }
+        try {
+            Course course = dbService.getCourseById(courseId);
+            User user = dbService.findUserByMail(mail);
+            if (!user.getIsAdmin()) {
+                return "redirect:/course/show?id=" + courseId;
+            }
+            Administrator administrator = (Administrator)user;
+            course.addAdmin(administrator);
+            administrator.addCourse(course);
+            dbService.updateAdministrator(administrator);
+            dbService.updateCourse(course);
+            model.addAttribute("course", course);
+            model.addAttribute("user", user);
+        } catch (DBException e) {
+            logger.error(e.getMessage());
+        }
+        return "course";
+    }
+
     @RequestMapping({"/", "/courses"})
     public String showCourses() {
         return "courses";
@@ -59,16 +87,33 @@ public class CourseController {
 
     @RequestMapping(value = "/course/edit", params = {"id", "action=editInfo"})
     public String editCourseInfo(final @Valid Course course, @NotNull BindingResult bindingResult,
-                                 final @RequestParam("id") Long courseId) {
+                                 final @RequestParam("id") Long courseId, final ModelMap model) {
         if (bindingResult.hasErrors()) {
             return "course";
         }
         try {
-            Course db_course = dbService.getCourseById(courseId);
-            db_course.setDescription(course.getDescription());
-            db_course.setIsDisplayed(course.getIsDisplayed());
-            dbService.updateCourse(db_course);
+            Course dbCourse = dbService.getCourseById(courseId);
+            dbCourse.setDescription(course.getDescription());
+            dbCourse.setIsDisplayed(course.getIsDisplayed());
+            dbService.updateCourse(dbCourse);
         } catch(DBException e) {
+            logger.error(e.getMessage());
+        }
+        return "redirect:/course/show?id=" + courseId;
+    }
+
+    @RequestMapping(value = "/course/edit", params = {"id", "action=removeAdmin", "adminId"})
+    public String removeAdmin(final @RequestParam("id") Long courseId, final Long adminId, final @NotNull ModelMap model) {
+        try {
+            Course dbCourse = dbService.getCourseById(courseId);
+            Administrator admin = dbService.getAdministratorById(adminId);
+            dbCourse.deleteAdmin(admin);
+            admin.deleteCourse(dbCourse);
+            dbService.updateAdministrator(admin);
+            dbService.updateCourse(dbCourse);
+            model.addAttribute("course", dbCourse);
+            model.addAttribute("user", admin);
+        } catch (DBException e) {
             logger.error(e.getMessage());
         }
         return "course";

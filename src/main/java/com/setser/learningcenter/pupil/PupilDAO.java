@@ -1,9 +1,9 @@
 package com.setser.learningcenter.pupil;
 
-import com.setser.learningcenter.db.UserDAO;
 import com.setser.learningcenter.course.Course;
 import com.setser.learningcenter.course.Course_;
 import com.setser.learningcenter.course.Lesson;
+import com.setser.learningcenter.db.UserDAO;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
