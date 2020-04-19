@@ -117,7 +117,7 @@ class PostgresServiceTest {
     void testCreateAndDeleteCourse() throws DBException {
         Course course = new Course();
         course.setDescription("Hell course");
-        course.setDisplayed(false);
+        course.setIsDisplayed(false);
         Administrator admin = (Administrator) service.findUserByMail("nicolas@nmattia.com");
         assertNotNull(admin);
         course.addAdmin(admin);

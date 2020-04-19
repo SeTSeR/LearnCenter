@@ -6,7 +6,9 @@ import com.setser.learningcenter.pupil.Pupil;
 import com.setser.learningcenter.teacher.Teacher;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +21,7 @@ public class Course extends BaseEntity {
 	private static final long serialVersionUID = 856971531241198546L;
 
 	@Column
+    @Size(max=150, message = "Максимальная длина описания курса 150 символов")
     private String description;
 
     @Column(name = "is_displayed")
