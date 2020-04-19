@@ -54,7 +54,7 @@
             <tbody>
             <tr th:each="lesson: *{lessons}">
                 <td th:text="${lesson.description}">Тема занятия</td>
-                <td th:text="${lesson.lessonTime}">Время проведения занятия</td>
+                <td th:text="${#temporals.format(lesson.lessonTime, 'dd-MM-yyyy HH:mm')}">Время проведения занятия</td>
                 <td><a th:href="@{/user/show(id=${lesson.teacher.id}, isTeacher=${lesson.teacher.isTeacher})}"
                        th:text="${lesson.teacher.patronymic != null} ?
                            ${lesson.teacher.firstName + ' ' + lesson.teacher.lastName + ' ' + lesson.teacher.patronymic} :

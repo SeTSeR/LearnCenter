@@ -16,7 +16,7 @@
             <tbody>
                 <tr th:each="lesson: ${lessons}">
                     <td th:text="${lesson.description}">Тема занятия</td>
-                    <td th:text="${lesson.lessonTime}">Время занятия</td>
+                    <td th:text="${#temporals.format(lesson.lessonTime, 'dd-MM-yyyy HH:mm')}">Время занятия</td>
                     <td><a th:href="@{/course/show(id=${lesson.course.id})}"
                            th:text="${lesson.course.description}">Занятие является частью курса</a></td>
                     <td><a th:href="@{/user/show(id=${lesson.teacher.id}, isTeacher=${lesson.teacher.isTeacher})}"
