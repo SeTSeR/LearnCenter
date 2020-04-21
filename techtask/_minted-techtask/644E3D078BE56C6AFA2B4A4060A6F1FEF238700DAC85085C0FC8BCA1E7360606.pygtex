@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{DROP} \PYG{k}{TRIGGER} \PYG{n}{fix\PYGZus{}courses} \PYG{k}{ON} \PYG{n}{ADMINISTRATOR}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{FUNCTION} \PYG{n}{fix\PYGZus{}courses}\PYG{p}{();}
+
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{PUPIL\PYGZus{}COURSE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{ADMIN\PYGZus{}COURSE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{PUPIL} \PYG{k}{CASCADE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{COURSE} \PYG{k}{CASCADE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{LESSON} \PYG{k}{CASCADE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{TEACHER} \PYG{k}{CASCADE}\PYG{p}{;}
+\PYG{k}{DROP} \PYG{k}{TABLE} \PYG{n}{ADMINISTRATOR} \PYG{k}{CASCADE}\PYG{p}{;}
+\end{Verbatim}
