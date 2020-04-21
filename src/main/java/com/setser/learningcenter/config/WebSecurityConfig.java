@@ -29,7 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/courses", "/course/search",
                             "/register").permitAll()
                     .regexMatchers("/course/show\\?id=\\d+").permitAll()
+                    .regexMatchers("/user/show").access("hasAnyRole('ROLE_PUPIL', 'ROLE_ADMIN', 'ROLE_TEACHER')")
+                    .antMatchers("/pupil/edit").access("hasRole('ROLE_PUPIL')")
+                    .antMatchers("/teacher/edit").access("hasRole('ROLE_TEACHER')")
+                    .regexMatchers("/user/timetable.*").permitAll()
                     .regexMatchers("/user/show\\?id=\\d+&isTeacher=(true|false)").permitAll()
+                    .regexMatchers("/course/(edit|create).*").access("hasRole('ROLE_ADMIN')")
+                    .regexMatchers("/course/register.*").access("hasRole('ROLE_PUPIL')")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()

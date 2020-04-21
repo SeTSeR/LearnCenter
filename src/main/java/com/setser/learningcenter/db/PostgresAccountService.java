@@ -35,11 +35,11 @@ public class PostgresAccountService implements UserDetailsService {
             List<GrantedAuthority> grantList = new ArrayList<>();
             GrantedAuthority authority;
             if (user.getIsAdmin()) {
-                authority = new SimpleGrantedAuthority("ADMIN");
+                authority = new SimpleGrantedAuthority("ROLE_ADMIN");
             } else if (user.getIsPupil()) {
-                authority = new SimpleGrantedAuthority("USER");
+                authority = new SimpleGrantedAuthority("ROLE_PUPIL");
             } else if (user.getIsTeacher()) {
-                authority = new SimpleGrantedAuthority("TEACHER");
+                authority = new SimpleGrantedAuthority("ROLE_TEACHER");
             } else {
                 throw new UsernameNotFoundException("User " + username + " is of incorrect type.");
             }
