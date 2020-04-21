@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{SELECT} \PYG{o}{*} \PYG{k}{FROM} \PYG{n}{LESSON}\PYG{p}{;}
-\end{Verbatim}
