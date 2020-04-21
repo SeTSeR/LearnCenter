@@ -95,7 +95,6 @@
                     <div><input type="checkbox" th:field="*{isDisplayed}"/><label>Показывать курс</label></div>
                     <input type="submit" value="Применить изменения">
                 </form>
-                <a th:href="@{/course/edit(id=*{id}, action=editTimetable)}">Редактировать расписание курса</a>
                 <h2>Администраторы курса</h2>
                 <ul th:each="admin: *{administrators}">
                     <li>[[${admin.mail}]]<a th:href="@{/course/edit(id=*{id}, adminId=${admin.id}, action=removeAdmin)}">Отозвать</a></li>
