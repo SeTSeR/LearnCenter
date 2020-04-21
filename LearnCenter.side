@@ -93,6 +93,13 @@
         ["xpath=//div[3]/input", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "46c8d4d4-33f0-4e50-abca-0259c9dbb189",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@value='Выход']",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "644adf1c-7456-4982-91cb-f0b3794db743",
@@ -1409,15 +1416,10 @@
     }, {
       "id": "03fd83c4-1ca5-4426-b1b8-d1f72d1c5a82",
       "comment": "",
-      "command": "click",
+      "command": "type",
       "target": "name=username",
-      "targets": [
-        ["name=username", "name"],
-        ["css=div:nth-child(1) input", "css:finder"],
-        ["xpath=//input[@name='username']", "xpath:attributes"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
+      "targets": [],
+      "value": "mail@example.com"
     }, {
       "id": "c2b95b40-ba4b-46e4-b676-ad03bf45af2d",
       "comment": "",
@@ -1606,18 +1608,6 @@
         ["xpath=//input", "xpath:position"]
       ],
       "value": ""
-    }, {
-      "id": "822235b2-5abf-4efc-9f9e-2657b0761f67",
-      "comment": "",
-      "command": "type",
-      "target": "name=username",
-      "targets": [
-        ["name=username", "name"],
-        ["css=div:nth-child(1) input", "css:finder"],
-        ["xpath=//input[@name='username']", "xpath:attributes"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "mail@example.com"
     }]
   }, {
     "id": "2f5e0a6d-82ab-4a22-b9cf-87c523158ec4",
@@ -2316,7 +2306,7 @@
       "id": "042c36ed-a271-4c2c-a8a3-4a9b76297dc7",
       "comment": "",
       "command": "click",
-      "target": "css=input:nth-child(6)",
+      "target": "xpath=//input[@value='Добавить администратора']",
       "targets": [
         ["css=input:nth-child(6)", "css:finder"],
         ["xpath=//input[@value='Добавить администратора']", "xpath:attributes"],
@@ -2373,11 +2363,11 @@
       "id": "67a5f910-7a39-412e-9fcb-9581d89eda02",
       "comment": "",
       "command": "click",
-      "target": "css=input:nth-child(6)",
+      "target": "xpath=//input[@value='Добавить администратора']",
       "targets": [
-        ["css=input:nth-child(6)", "css:finder"],
+        ["css=input:nth-child(5)", "css:finder"],
         ["xpath=//input[@value='Добавить администратора']", "xpath:attributes"],
-        ["xpath=//div[2]/div[2]/div/div/input", "xpath:position"]
+        ["xpath=//div[2]/div/div/input", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -2386,10 +2376,10 @@
       "command": "click",
       "target": "name=mail",
       "targets": [
-        ["name=mail", "name"],
-        ["css=form:nth-child(1) > div > input", "css:finder"],
-        ["xpath=//input[@name='mail']", "xpath:attributes"],
-        ["xpath=//div[2]/div[2]/div/div/div/form/div/input", "xpath:position"]
+        ["name=username", "name"],
+        ["css=div:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -2398,10 +2388,10 @@
       "command": "type",
       "target": "name=mail",
       "targets": [
-        ["name=mail", "name"],
-        ["css=form:nth-child(1) > div > input", "css:finder"],
-        ["xpath=//input[@name='mail']", "xpath:attributes"],
-        ["xpath=//div[2]/div[2]/div/div/div/form/div/input", "xpath:position"]
+        ["name=username", "name"],
+        ["css=div:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
       ],
       "value": "robert@stuffwithstuff.com"
     }, {
@@ -2616,9 +2606,9 @@
       "id": "2f8ed8d2-a8a4-42a1-adb3-24eb124790e5",
       "comment": "",
       "command": "click",
-      "target": "css=ul:nth-child(6) a",
+      "target": "xpath=(//a[contains(text(),'Отозвать')])[2]",
       "targets": [
-        ["css=ul:nth-child(6) a", "css:finder"],
+        ["css=ul:nth-child(5) a", "css:finder"],
         ["xpath=(//a[contains(text(),'Отозвать')])[2]", "xpath:link"],
         ["xpath=//a[contains(@href, '/course/edit?id=1&adminId=2&action=removeAdmin')]", "xpath:href"],
         ["xpath=//ul[2]/li/a", "xpath:position"]
